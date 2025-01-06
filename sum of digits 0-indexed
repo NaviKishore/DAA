@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int sumOfDigits(int num) {
+    int sum = 0;
+    while (num > 0) {
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
+}
+
+int maximumSum(int* nums, int numsSize) {
+    int maxSum = -1;
+    
+    // Create an array to store the maximum number for each sum of digits
+    int sumDigits[100] = {-1}; // Assuming sum of digits can be between 0 and 99
+
+    for (int i = 0; i < numsSize; i++) {
+        int sum = sumOfDigits(nums[i]);
+        
+        // If we have encountered the same sum of digits, check for the maximum sum
+        if (sumDigits[sum] != -1) {
+            int possibleMaxSum = nums[i] + nums[sumDigits[sum]];
+            if (possibleMaxSum > maxSum) {
+                maxSum = possibleMaxSum;
+            }
+        }
+        
+        // Store the current number with the same sum of digits
+        if (nums[i] > sumDigits[sum]) {
+            sumDigits[sum] = i;
+        }
+    }
+    
+    return maxSum;
+}
+
+int main() {
+    int nums[] = {51, 71, 17, 42}; // Example input
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+
+    int result = maximumSum(nums, numsSize);
+    printf("Maximum sum of nums[i] + nums[j] with the same sum of digits is: %d\n", result);
+
+    return 0;
+}
