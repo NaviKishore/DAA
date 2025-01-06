@@ -1,0 +1,25 @@
+#include <stdio.h>
+int evenSumFibonacci(int n) {
+    if (n < 0) {
+        printf("Invalid input. N should be a non-negative integer.\n");
+        return 0;
+    }
+
+    int a = 0, b = 1, sum = 0;
+    for (int i = 0; i <= n; i++) {
+        if (i % 2 == 0) {
+            sum += a;
+        }
+        int temp = b;
+        b = a + b;
+        a = temp;
+    }
+    return sum;
+}
+int main() {
+    int n = 4;
+    int result = evenSumFibonacci(n);
+    printf("Sum of numbers at even indexes in Fibonacci series till term %d: %d\n", n, result);
+
+    return 0;
+}
