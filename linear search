@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+// Function to perform linear search
+int linearSearch(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            return i; // Key found at index i
+        }
+    }
+    return -1; // Key not found
+}
+
+// Function to compute the time of completion of linear search
+void performSearch(int arr[], int size, int key) {
+    int position = linearSearch(arr, size, key);
+    
+    if (position != -1) {
+        printf("Element found in position %d\n", position);
+    } else {
+        printf("Element not found\n");
+    }
+}
+
+int main() {
+    // Array A
+    int A[] = {56, 89, 7, 13, 75, 23, 8, 12};
+    int sizeA = sizeof(A) / sizeof(A[0]);
+    int keyA = 75;
+    printf("A = (56, 89, 7, 13, 75, 23, 8, 12), Key element: %d\n", keyA);
+    performSearch(A, sizeA, keyA);
+
+    // Array B
+    int B[] = {89, 45, -23, 45, 0, 44, 2};
+    int sizeB = sizeof(B) / sizeof(B[0]);
+    int keyB = 0;
+    printf("\nB = (89, 45, -23, 45, 0, 44, 2), Key element: %d\n", keyB);
+    performSearch(B, sizeB, keyB);
+
+    // Array C
+    int C[] = {45, 67, 56, 34, -2, 100};
+    int sizeC = sizeof(C) / sizeof(C[0]);
+    int keyC = 90;
+    printf("\nC = (45, 67, 56, 34, -2, 100), Key element: %d\n", keyC);
+    performSearch(C, sizeC, keyC);
+
+    return 0;
+}
