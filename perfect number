@@ -1,0 +1,47 @@
+#include <stdio.h>
+int isPerfectNumber(int num) {
+    if (num < 2) return 0;
+
+    int sum = 1; 
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0) {
+            sum += i;
+            if (i != num / i) {
+                sum += num / i;
+            }
+        }
+    }
+
+    return sum == num;
+}
+void printPerfectNumbers(int n) {
+    if (n <= 0) {
+        printf("Please enter a positive integer.\n");
+        return;
+    }
+
+    int count = 0;
+    int num = 2;
+
+    printf("First %d perfect numbers are: ", n);
+    while (count < n) {
+        if (isPerfectNumber(num)) {
+            printf("%d ", num);
+            count++;
+        }
+        num++;
+    }
+    printf("\n");
+}
+
+int main() {
+    int testCases[] = {0, 5, -2, -5, 0};
+    int numTestCases = sizeof(testCases) / sizeof(testCases[0]);
+
+    for (int i = 0; i < numTestCases; i++) {
+        printf("Test case N = %d: ", testCases[i]);
+        printPerfectNumbers(testCases[i]);
+    }
+
+    return 0;
+}
