@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <limits.h>
+
+// Utility function to calculate the sum of frequencies from index i to j
+int sum(int freq[], int i, int j) {
+    int s = 0;
+    for (int k = i; k <= j; k++) {
+        s += freq[k];
+    }
+    return s;
+}
+
+// Function to construct the Optimal Binary Search Tree
+int optimalBST(int keys[], int freq[], int n) {
+    int cost[n][n];
+
+    // Initialize the diagonal (single keys as trees)
+    for (int i = 0; i < n; i++) {
+        cost[i][i] = freq[i];
+    }
+
+    // Fill the cost table for chains of length 2 to n
+    for (int length = 2; length <= n; length++) {
+        for (int i = 0; i <= n - length; i++) {
+            int j = i + length - 1;
+            cost[i][j] = INT_MAX; // Initialize cost as maximum
+
+            // Try making each key in range i to j the root
+            for (int r = i; r <= j; r++) {
+                int c = ((r > i) ? cost[i][r - 1] : 0) +
+                        ((r < j) ? cost[r + 1][j] : 0) +
+                        sum(freq, i, j);
+
+                if (c < cost[i][j]) {
+                    cost[i][j] = c;
+                }
+            }
+        }
+    }
+
+    // Return the cost of the optimal BST
+    return cost[0][n - 1];
+}
+
+// Main function
+int main() {
+    int keys[] = {10, 12, 20};
+    int freq[] = {34, 8, 50};
+    int n = sizeof(keys) / sizeof(keys[0]);
+
+    printf("Cost of the Optimal BST is %d\n", optimalBST(keys, freq, n));
+    return 0;
+}
