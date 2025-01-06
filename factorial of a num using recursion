@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+// Recursive function to find factorial
+unsigned long long factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1; // Base case: factorial(0) = factorial(1) = 1
+    }
+    return n * factorial(n - 1); // Recursive step
+}
+
+int main() {
+    int num;
+
+    // Input from user
+    printf("Enter a number: ");
+    scanf("%d", &num);
+
+    // Handle invalid input
+    if (num < 0) {
+        printf("Factorial of a negative number doesn't exist.\n");
+    } else {
+        // Output the factorial
+        printf("Factorial of %d is %llu\n", num, factorial(num));
+    }
+
+    return 0;
+}
