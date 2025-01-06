@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+// Function to perform Bubble Sort
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    int iterations = 0; // To count the number of iterations
+
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            iterations++; // Increment iteration count
+            if (arr[j] > arr[j + 1]) {
+                // Swap if the current element is greater than the next element
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    printf("Number of iterations: %d\n", iterations);
+}
+
+// Function to print an array
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+// Main function
+int main() {
+    // Example 1
+    int arr1[] = {10, 5, 80, -2, 15, 23, 45};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    printf("Original array: ");
+    printArray(arr1, n1);
+
+    bubbleSort(arr1, n1);
+    printf("Sorted array: ");
+    printArray(arr1, n1);
+
+    // Example 2
+    int arr2[] = {12, 3, 0, 34, -11, 22, 8};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    printf("\nOriginal array: ");
+    printArray(arr2, n2);
+
+    bubbleSort(arr2, n2);
+    printf("Sorted array: ");
+    printArray(arr2, n2);
+
+    return 0;
+}
