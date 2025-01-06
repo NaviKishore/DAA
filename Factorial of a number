@@ -1,0 +1,27 @@
+#include <stdio.h>
+long long factorial(int n) {
+    if (n < 0) {
+        printf("No negative value allowed.\n");
+        return -1;
+    }
+    if (n == 0) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+int main() {
+    int testCases[] = {4, -3, 6};
+    int numTestCases = sizeof(testCases) / sizeof(testCases[0]);
+
+    for (int i = 0; i < numTestCases; i++) {
+        int n = testCases[i];
+        printf("Testing n = %d: ", n);
+        
+        long long result = factorial(n);
+        if (result != -1) {
+            printf("Value is %lld\n", result);
+        }
+    }
+    return 0;
+}
