@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h> // Include for atoi
+#include <ctype.h>  // Include for isdigit
+
+// Function to check if the input string is numeric
+int isNumeric(char str[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isdigit(str[i])) {
+            return 0; // Return false if a non-digit character is found
+        }
+    }
+    return 1; // Return true if all characters are digits
+}
+
+// Function to reverse a number
+int reverseNumber(int num) {
+    int reverse = 0;
+    while (num != 0) {
+        reverse = reverse * 10 + (num % 10);
+        num /= 10;
+    }
+    return reverse;
+}
+
+int main() {
+    char input[20]; // Input string to handle numbers and invalid characters
+    printf("Enter a number: ");
+    scanf("%s", input);
+
+    // Check if the input is numeric
+    if (!isNumeric(input)) {
+        printf("Illegal input\n");
+        return 0;
+    }
+
+    // Convert the numeric string to an integer
+    int num = atoi(input);
+
+    // Find the reverse
+    int reversed = reverseNumber(num);
+
+    // Print the result
+    printf("%d\n", reversed);
+
+    return 0;
+}
