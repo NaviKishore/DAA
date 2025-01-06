@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+void findSubset(int arr[], int n, int subset[], int subsetSize, int index, int target) {
+    // Base case: if the target is 0, print the subset
+    if (target == 0) {
+        printf("Subset is (");
+        for (int i = 0; i < subsetSize; i++) {
+            printf("%d", subset[i]);
+            if (i < subsetSize - 1) printf(", ");
+        }
+        printf(")\n");
+        return;
+    }
+
+    // If no more elements to process or target becomes negative
+    if (index == n || target < 0) return;
+
+    // Include the current element in the subset
+    subset[subsetSize] = arr[index];
+    findSubset(arr, n, subset, subsetSize + 1, index + 1, target - arr[index]);
+
+    // Exclude the current element and move to the next
+    findSubset(arr, n, subset, subsetSize, index + 1, target);
+}
+
+void sumOfSubsets(int arr[], int n, int target) {
+    int subset[n]; // Temporary array to store subsets
+    printf("Input Set: ");
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\nTarget Sum: %d\n", target);
+
+    findSubset(arr, n, subset, 0, 0, target);
+}
+
+int main() {
+    // Test Case 1
+    int set1[] = {6, 2, 8, 1, 5};
+    int target1 = 9;
+    sumOfSubsets(set1, 5, target1);
+
+    // Test Case 2
+    int set2[] = {6, -4, 7, -1, 5, 2, 8, 1};
+    int target2 = 10;
+    sumOfSubsets(set2, 8, target2);
+
+    return 0;
+}
