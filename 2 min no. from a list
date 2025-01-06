@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <limits.h> // For INT_MAX
+
+// Function to find the first two minimum values in an array
+void findTwoMin(int arr[], int n) {
+    if (n < 2) {
+        printf("Array must contain at least two elements.\n");
+        return;
+    }
+
+    int firstMin = INT_MAX; // Initialize first minimum as the maximum possible value
+    int secondMin = INT_MAX; // Initialize second minimum as the maximum possible value
+
+    // Traverse the array to find the two smallest values
+    for (int i = 0; i < n; i++) {
+        if (arr[i] < firstMin) {
+            secondMin = firstMin; // Update second minimum
+            firstMin = arr[i];    // Update first minimum
+        } else if (arr[i] < secondMin && arr[i] != firstMin) {
+            secondMin = arr[i]; // Update second minimum
+        }
+    }
+
+    printf("The two smallest values are: (%d, %d)\n", firstMin, secondMin);
+}
+
+// Main function
+int main() {
+    int arr[] = {3, 5, -4, 1, 8, 2, 0, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    findTwoMin(arr, n);
+
+    return 0;
+}
