@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100
+void displayList(int list[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", list[i]);
+    }
+    printf("\n");
+}
+int insertNumber(int list[], int *size, int position, int number) {
+    if (position < 0 || position > *size) {
+        printf("Position %d is not available in the list.\n", position);
+        return 0;
+    }
+
+    if (*size >= MAX_SIZE) {
+        printf("The list is full. Cannot insert a new number.\n");
+        return 0;
+    }
+    for (int i = *size; i > position; i--) {
+        list[i] = list[i - 1];
+    }
+    list[position] = number;
+    (*size)++;
+    return 1;
+}
+
+int main() {
+    int list[MAX_SIZE] = {10, 20, 30, 40, 50};
+    int size = 5;
+
+    printf("Original list: ");
+    displayList(list, size);
+    if (insertNumber(list, &size, 0, 5)) {
+        printf("After inserting 5 at the beginning: ");
+        displayList(list, size);
+    }
+    if (insertNumber(list, &size, 3, 25)) {
+        printf("After inserting 25 in the middle: ");
+        displayList(list, size);
+    }
+    if (insertNumber(list, &size, size, 60)) {
+        printf("After inserting 60 at the last: ");
+        displayList(list, size);
+    }
+    insertNumber(list, &size, 10, 70);
+
+    return 0;
+}
