@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+// Function to perform binary search
+int binarySearch(int nums[], int size, int target) {
+    int left = 0, right = size - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2; // Avoids overflow
+
+        if (nums[mid] == target) {
+            return mid; // Target found
+        } else if (nums[mid] < target) {
+            left = mid + 1; // Search in the right half
+        } else {
+            right = mid - 1; // Search in the left half
+        }
+    }
+
+    return -1; // Target not found
+}
+
+int main() {
+    // Example input
+    int nums[] = {-10, -3, 0, 5, 9, 12};
+    int size = sizeof(nums) / sizeof(nums[0]);
+    int target;
+
+    // Input target from user
+    printf("Enter the target number: ");
+    scanf("%d", &target);
+
+    // Perform binary search
+    int result = binarySearch(nums, size, target);
+
+    // Output the result
+    if (result != -1) {
+        printf("Target %d found at index %d\n", target, result);
+    } else {
+        printf("Target %d not found in the array\n", target);
+    }
+
+    return 0;
+}
