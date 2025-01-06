@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <limits.h>
+#include <ctype.h>
+#include <stdbool.h>
+
+// Function to check for illegal input
+bool validateInput(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == INT_MIN) {
+            return false; // Illegal input detected
+        }
+    }
+    return true;
+}
+
+// Function to find Min and Max using divide and conquer
+void findMinMax(int arr[], int low, int high, int *min, int *max) {
+    // Base case: only one element
+    if (low == high) {
+        if (arr[low] < *min) *min = arr[low];
+        if (arr[low] > *max) *max = arr[low];
+        return;
+    }
+
+    // Base case: only two elements
+    if (high == low + 1) {
+        if (arr[low] < arr[high]) {
+            if (arr[low] < *min) *min = arr[low];
+            if (arr[high] > *max) *max = arr[high];
+        } else {
+            if (arr[high] < *min) *min = arr[high];
+            if (arr[low] > *max) *max = arr[low];
+        }
+        return;
+    }
+
+    // Divide the array into two parts
+    int mid = (low + high) / 2;
+
+    // Recursively find min and max in both parts
+    findMinMax(arr, low, mid, min, max);
+    findMinMax(arr, mid + 1, high, min, max);
+}
+
+int main() {
+    // Test arrays
+    int arr1[] = {23, 45, 6, 8, -9, 44, 7, 8};
+    int arr2[] = {8, -5, 7, 2, 6, 0, 1, 9};
+    int arr3[] = {45, INT_MIN, 9, 8, 4, 7, 11, 22, 16}; // INT_MIN for "illegal input"
+
+    // Arrays for testing
+    int *testCases[] = {arr1, arr2, arr3};
+    int sizes[] = {8, 8, 9};
+
+    // Process each test case
+    for (int t = 0; t < 3; t++) {
+        int *arr = testCases[t];
+        int size = sizes[t];
+        int min = INT_MAX, max = INT_MIN;
+
+        // Validate input
+        if (!validateInput(arr, size)) {
+            printf("Test Case %d: Illegal input\n", t + 1);
+            continue;
+        }
+
+        // Find min and max using divide and conquer
+        findMinMax(arr, 0, size - 1, &min, &max);
+        printf("Test Case %d: Min val = %d, Max val = %d\n", t + 1, min, max);
+    }
+
+    return 0;
+}
