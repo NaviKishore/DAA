@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+void backtrack(int* nums, int numsSize, int start, int* temp, int tempSize, int result[][100], int* returnSize) {
+    // Add current subset to result
+    for (int i = 0; i < tempSize; i++) {
+        result[*returnSize][i] = temp[i];
+    }
+    (*returnSize)++;
+
+    // Generate subsets
+    for (int i = start; i < numsSize; i++) {
+        temp[tempSize] = nums[i];
+        backtrack(nums, numsSize, i + 1, temp, tempSize + 1, result, returnSize);
+    }
+}
+
+int** subsets(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {
+    // Maximum possible subsets: 2^n
+    int totalSubsets = 1 << numsSize;
+    int** result = (int**)malloc(totalSubsets * sizeof(int*));
+    *returnColumnSizes = (int*)malloc(totalSubsets * sizeof(int));
+    *returnSize = 0;
+
+    int temp[numsSize];
+    backtrack(nums, numsSize, 0, temp, 0, result, returnSize);
+
+    // Set column sizes for each subset
+    for (int i = 0; i < *returnSize; i++) {
+        (*returnColumnSizes)[i] = 0;
+        while (result[i][(*returnColumnSizes)[i]] != 0) {
+            (*returnColumnSizes)[i]++;
+        }
+    }
+
+    return result;
+}
+
+void printSubsets(int** result, int returnSize, int* returnColumnSizes) {
+    for (int i = 0; i < returnSize; i++) {
+        printf("[");
+        for (int j = 0; j < returnColumnSizes[i]; j++) {
+            printf("%d", result[i][j]);
+            if (j < returnColumnSizes[i] - 1) {
+                printf(", ");
+            }
+        }
+        printf("]\n");
+    }
+}
+
+int main() {
+    int nums[] = {1, 2, 3};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+    int returnSize;
+    int* returnColumnSizes;
+
+    int** result = subsets(nums, numsSize, &returnSize, &returnColumnSizes);
+    printSubsets(result, returnSize, returnColumnSizes);
+
+    return 0;
+}
