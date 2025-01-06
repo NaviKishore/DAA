@@ -1,0 +1,44 @@
+#include <stdio.h>
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i; 
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            int temp = arr[minIndex];
+            arr[minIndex] = arr[i];
+            arr[i] = temp;
+        }
+    }
+}
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int testCaseA[] = {10, 5, 80, -2, 15, 23, 45};
+    int testCaseB[] = {12, 3, 0, 34, -11, 2, 8};
+
+    int nA = sizeof(testCaseA) / sizeof(testCaseA[0]);
+    int nB = sizeof(testCaseB) / sizeof(testCaseB[0]);
+
+    printf("Input A: ");
+    printArray(testCaseA, nA);
+    selectionSort(testCaseA, nA);
+    printf("Sorted A: ");
+    printArray(testCaseA, nA);
+
+    printf("Input B: ");
+    printArray(testCaseB, nB);
+    selectionSort(testCaseB, nB);
+    printf("Sorted B: ");
+    printArray(testCaseB, nB);
+
+    return 0;
+}
